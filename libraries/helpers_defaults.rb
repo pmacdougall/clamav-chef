@@ -35,6 +35,8 @@ module ClamavCookbook
         case node['platform_family']
         when 'debian'
           'clamav-daemon'
+        when 'amazon'
+          'clamd'
         end
       end
 
@@ -47,6 +49,8 @@ module ClamavCookbook
         case node['platform_family']
         when 'debian'
           'clamav-freshclam'
+        when 'amazon'
+          'clamd'
         end
       end
 
@@ -75,7 +79,7 @@ module ClamavCookbook
       #
       def clamav_data_dir
         case node['platform_family']
-        when 'debian'
+        when 'debian', 'amazon'
           '/var/lib/clamav'
         end
       end
@@ -89,6 +93,8 @@ module ClamavCookbook
         case node['platform_family']
         when 'debian'
           '/etc/clamav'
+        when 'amazon'
+          '/etc'
         end
       end
 
@@ -99,7 +105,7 @@ module ClamavCookbook
       #
       def clamav_user
         case node['platform_family']
-        when 'debian'
+        when 'debian','amazon'
           'clamav'
         end
       end
@@ -111,7 +117,7 @@ module ClamavCookbook
       #
       def clamav_group
         case node['platform_family']
-        when 'debian'
+        when 'debian','amazon'
           'clamav'
         end
       end
@@ -125,6 +131,8 @@ module ClamavCookbook
         case node['platform_family']
         when 'debian'
           %w(clamav clamav-daemon clamav-freshclam)
+        when 'amazon'
+          %w(clamav clamd clamav-update)
         end
       end
 
@@ -137,6 +145,8 @@ module ClamavCookbook
         case node['platform_family']
         when 'debian'
           %w(libclamav-dev)
+        when 'amazon'
+          %w(libclamav-devel)
         end
       end
     end
