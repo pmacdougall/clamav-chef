@@ -49,7 +49,8 @@ class Chef
         action a  do
           if a == :start && new_resource.service_name == 'clamd'
             execute 'Ensure virus definitions exist so clamd can start' do
-              command 'freshclam'
+              # tried a not_if guard but it still would try to execute freshclam and result in an error during initial run
+              command "[ ! -f #{::File.join(clamav_data_dir, 'main.cvd')} ] &&  freshclam || true"
               creates ::File.join(clamav_data_dir, 'main.cvd')
             end
           end
