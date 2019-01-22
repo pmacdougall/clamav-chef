@@ -91,10 +91,8 @@ module ClamavCookbook
       #
       def clamav_conf_dir
         case node['platform_family']
-        when 'debian'
+        when 'debian', 'amazon'
           '/etc/clamav'
-        when 'amazon'
-          '/etc'
         end
       end
 
